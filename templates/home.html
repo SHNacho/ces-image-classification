@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 2em;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 1.5em;
+            font-size: 24px;
+            color: #333;
+        }
+        select, input[type="file"], input[type="submit"] {
+            display: block;
+            margin: 1em auto;
+            padding: 0.5em;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-width: 300px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 2em;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload an Image for Classification</h1>
+        <form method="POST" action="/" enctype="multipart/form-data">
+            <label for="classifier_model">Select Classifier Model:</label>
+            <select name="classifier_model" id="classifier_model">
+                <option value="distilbert">DistilBERT</option>
+                <option value="bert">BERT</option>
+                <option value="roberta">RoBERTa</option>
+            </select>
+
+            <label for="captioning_model">Select Captioning Model:</label>
+            <select name="captioning_model" id="captioning_model">
+                <option value="blip">BLIP</option>
+                <option value="llava">LLaVA</option>
+            </select>
+
+            <input type="file" name="file">
+            <input type="submit" value="Upload and Classify">
+        </form>
+        {% if result %}
+            <div class="result">
+                Classified as: {{ result['class'] }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
+
